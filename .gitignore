@@ -1,0 +1,65 @@
+# Private project report and source material
+Report/
+Source/
+Visual_Assets/
+firmware/
+SECURITY.md
+docs/*.md
+report.txt
+report_pdf.txt
+
+# Arduino IDE / toolchain build products
+build/
+.cache/
+*.elf
+*.bin
+*.hex
+*.map
+*.eep
+*.d
+*.o
+*.a
+
+# Arduino local configuration
+secrets.h
+Secret.h
+config.local.h
+.env
+.env.*
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.code-workspace
+.clangd/
+
+# OS metadata and thumbnails
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temporary, backup, and generated files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+*.log
+serial-monitor.log
+report.txt
+report_pdf.txt
+
+# Python and Node caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+
+# Personal device data
+*.pem
+*.key
+*.crt
+credentials.json
