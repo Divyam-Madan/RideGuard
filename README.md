@@ -29,6 +29,32 @@ RideGuard/
     └── images/
 ```
 
+## Sensors
+
+| Component | Role | Output / interface | Key notes |
+|---|---|---|---|
+| MPU6050 IMU | Detect acceleration change, rotation, and temperature | I²C, 0x68 | Calibration-based movement and gyro thresholds |
+| SW-420 module | Detect mechanical vibration or shock events | Digital GPIO 27 interrupt | Edge count rather than a calibrated vibration value; adjust onboard potentiometer |
+| IR obstacle sensor | Indicate an object in the optical sensing zone | Digital GPIO 34 | LOW is treated as object detected; output polarity and sensitivity depend on the module |
+| NEO-6M GPS | Provide position, altitude, satellites, and NMEA data outdoors | UART2, GPIO 16 RX / GPIO 17 TX, 9600 baud | Valid fixes are shown as LIVE FIX; otherwise the display reports DEMO DATA |
+
+## Actuators, indicators, and controls
+
+| Component | Connection | Purpose | Implementation note |
+|---|---|---|---|
+| SG90 micro servo | Signal GPIO 18, supply from a suitable servo rail | Demonstrates lock/unlock movement | 0° unlock and 90° lock; command state does not prove physical lock engagement |
+| Buzzer / buzzer module | GPIO 25 | Warning beeps and sustained theft/test alarm | Use a transistor or suitable module instead of overloading GPIO with a high-current buzzer |
+| Status LED | GPIO 2 through a current-limiting resistor | Armed, arming, warning, and alarm indication | Armed stays on; arming and theft/test alarm use blinking patterns |
+| ARM push button | GPIO 32 to GND, INPUT_PULLUP | Locks and starts arming | Pressed state reads LOW |
+| DISARM push button | GPIO 33 to GND, INPUT_PULLUP | Unlocks and clears security alerts | Pressed state reads LOW |
+| SSD1306 OLED | Shared I²C GPIO 21/22, address 0x3C | Local status, sensor, GPS, alert, and IP information | Some modules may use a different address or supply convention |
+
+The removed reed switch is not present in the current firmware or hardware logic.
+
+## Useful parts and bench tools
+
+Short jumper leads, a breadboard, LED resistors, pull-up checks, suitable capacitors, current-limiting resistors, a transistor or relay-free driver, heat-shrink tubing, soldering tools, small magnets for position experiments, USB cable, and an isolated regulated power supply support testing. Supply ratings and module voltage compatibility must be verified before assembly. Raw Li-ion cells should never be connected directly to ESP32 power pins.
+
 ## Hardware
 
 | Component | Purpose |
@@ -199,8 +225,6 @@ The implementation builds on the Arduino framework and these libraries:
 - [Adafruit SSD1306 Library](https://github.com/adafruit/Adafruit_SSD1306)
 - [TinyGPSPlus](https://github.com/mikalhart/TinyGPSPlus)
 
-## Contributing and review
+## Contributing
 
-This repository is intended for private academic review until Divyam explicitly chooses to publish it. Before publication, rotate any local Wi-Fi credential, remove private static addresses and network-specific assumptions, review Git history, and complete the hardware test matrices.
-
-Do not commit or push without explicit review. No commit, push, release, or publication is performed by this documentation preparation workflow.
+Made by Divyam Madan. Enjoy type shit.
